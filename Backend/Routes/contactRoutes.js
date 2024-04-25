@@ -1,21 +1,13 @@
 const express = require("express");
-const router = express.Router();
 const { jwtAuth } = require("../jwt/jwt");
-const Contact = require("../Models/contactSchema");
+const {
+  getAllContact,
+  createContact,
+} = require("../Controllers/contactController");
+const router = express.Router();
 
-router.route("/").get(jwtAuth, async (req, res) => {
-  const data = await Contact.find({ uID: req.userData.uid });
-  res.status(200).json(data);
-});
+router.route("/").get(jwtAuth, getAllContact);
 
 // /api/contact/create
-router.route("/create").post(jwtAuth, async (req, res) => {
-  const data = req.body;
-  const contact = Contact(data);
-  const { uid } = req.userData;
-  contact.uID = uid;
-  // console.log(req);
-  const response = await contact.save();
-  res.status(200).send(response);
-});
+router.route("/create").post(jwtAuth, createContact);
 module.exports = router;
