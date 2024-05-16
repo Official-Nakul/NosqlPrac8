@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import ContactCard from "./components/ContactCard";
 function App() {
-  // Assuming you have stored the JWT token in localStorage or sessionStorage
+  const [contact, setContact] = useState([]);
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjJhYWJiOTE4M2M1Y2MxY2IzYzI2OTEiLCJpYXQiOjE3MTQwNzI1MDV9.oLbnceTIQIDNdGIsPIYQpaOOCK4-K7eOwiW7E-oIa00";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjQ2M2M5YTJkNWE2ZjA2ZWU3Mjg0ODYiLCJpYXQiOjE3MTU4NzkwNjZ9.c5obhgeSVMJaJDMS1Siz4Qj3RcVFV8h84qfNtBsooA8";
 
-  // Set up Axios instance with default headers including the JWT token
   const axiosInstance = axios.create({
     // baseURL: "api/contact",
     headers: {
@@ -13,22 +14,23 @@ function App() {
       "Content-Type": "application/json",
     },
   });
-
-  // Make a GET request using the Axios instance
-  axiosInstance
-    .get("api/contact")
-    .then((response) => {
-      // Handle successful response
-      console.log(response.data);
-    })
-    .catch((error) => {
-      // Handle error
-      console.error("Error fetching data:", error);
-    });
+  useEffect(() => {
+    axiosInstance
+      .get("api/contact")
+      .then((response) => {
+        // Handle successful response
+        setContact([...response.data]);
+        console.log(contact);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <>
-      <h1>hello</h1>
+      <ContactCard contact={contact} />
     </>
   );
 }
