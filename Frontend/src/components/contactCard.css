@@ -7,9 +7,9 @@
   align-items: center;
   /* place-content: center; */
   grid-template-rows: repeat(4, 1fr);
-  height: 100vh;
+  height: auto;
   width: 100vw;
-  margin: 7em 0 0 0;
+  margin: 7em 0 1em 0;
 }
 .cards {
   background-color: #f0f8ff;

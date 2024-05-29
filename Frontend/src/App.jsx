@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import ContactCard from "./components/ContactCard";
+import Form from "./components/Form";
 function App() {
   const [contact, setContact] = useState([]);
   const token =
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <>
+      {/* <Form /> */}
       <ContactCard contact={contact} />
     </>
   );
